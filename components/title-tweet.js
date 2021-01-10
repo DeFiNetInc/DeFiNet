@@ -1,5 +1,4 @@
-
-export default function Tweet(props) {
+export default function TitleTweet(props) {
     return <div className="card">
                 <div className="card-content">
                     <div className="media">
@@ -15,7 +14,11 @@ export default function Tweet(props) {
                     </div>
 
                     <div className="content">
-                        {props.content}                  
+                        {props.title}                  
+                        <br />
+                        <br />
+                        A 🧵 (1/)
+                        <br />
                         <br />
                         <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                     </div>

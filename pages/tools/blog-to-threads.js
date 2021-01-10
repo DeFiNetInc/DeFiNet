@@ -7,30 +7,29 @@ class BlogToThread extends Component {
     super(props);
     this.state = {
       formValue: "Type your blog here",
+      titleTweet: "",
       tweets: ['sample tweet content']
     }
     this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
   }
  
 
   parseTextIntoThread(textToParse) {
     let tweets = []
-    console.log("Parsing text of length " + textToParse.length)
     let contentArray = textToParse.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
-    console.log("Content array of length " + contentArray.length)
     let tweet_string = ''
     contentArray.forEach(function (content) {
         // console.log(content)
         if (tweet_string.length + content.length < 270) {
             tweet_string += content
         } else {
-            tweet_string += '(' + (tweets.length + 1) + '/)'
+            tweet_string += '(' + (tweets.length + 2) + '/)'
             tweets.push(tweet_string)
             tweet_string = content
         }
 
     });
-    console.log("First tweet: " + tweets[0])
     
 
     return tweets;
@@ -47,15 +46,22 @@ class BlogToThread extends Component {
     })
   }
 
+  handleTitleChange(event) {
+    let title = event.target.value;
+    this.setState({
+      title: title
+    })
+  }
+
   render() {
   return <section className="container">
           <h1 className="title">Blog to Twitter Thread</h1>
           <div className="columns">
             <div className="column">
-              <Form formValue={this.state.formValue} onFormChange={this.handleFormChange}/>
+              <Form formValue={this.state.formValue} onFormChange={this.handleFormChange} onTitleChange={this.handleTitleChange}/>
             </div>
             <div className="column">
-              <Threader tweets={this.state.tweets}/>
+              <Threader tweets={this.state.tweets} title={this.state.title} />
             </div>
           </div>
         </section>
